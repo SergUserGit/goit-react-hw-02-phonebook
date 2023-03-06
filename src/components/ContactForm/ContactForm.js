@@ -21,6 +21,7 @@ class Form extends Component {
             required
           />
         </label>
+        <button type="submit">Add contact</button>
       </form>
     );
   }
