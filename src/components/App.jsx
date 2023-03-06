@@ -35,9 +35,20 @@ class App extends Component {
   handleFilterChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+
     const filterArray = this.state.contacts.filter(contact =>
       contact.name.toUpperCase().includes(value.toUpperCase())
     );
+
+    const filterNotArray = this.state.contacts.filter(contact =>
+      contact.name.toUpperCase().includes(value.toUpperCase())
+    );
+
+    if (filterArray.length > 0) {
+      this.setState(prevState => ({ contacts: filterArray }));
+    } else {
+      this.setState({ contacts: [...filterNotArray, ...filterArray] });
+    }
   };
 
   render() {
