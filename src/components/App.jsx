@@ -83,9 +83,9 @@ class App extends Component {
         style={{
           height: '100vh',
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
+          flexDirection: 'column',
+          paddingLeft: '50px',
+          fontSize: 20,
           color: '#010101',
         }}
       >

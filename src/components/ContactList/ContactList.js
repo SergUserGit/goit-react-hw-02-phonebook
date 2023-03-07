@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 const ContactList = function ({ contacts, handleDeleteContact }) {
   return (
-    <ul>
+    <ul className={css.listContact}>
       {contacts.map(({ id, name, number }) => (
-        <li key={id}>
-          <p>
+        <li className={css.itemContact} key={id}>
+          <p className={css.contactName}>
             {name}: {number}
           </p>
           <button

@@ -1,11 +1,13 @@
+import css from './ContactForm.module.css';
 import PropTypes from 'prop-types';
 
 const ContactForm = function ({ handleSubmit, handleChange }) {
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form className={css.formContact} onSubmit={handleSubmit}>
+      <label className={css.formLabel}>
         Name
         <input
+          className={css.formInput}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -14,9 +16,10 @@ const ContactForm = function ({ handleSubmit, handleChange }) {
           onChange={handleChange}
         />
       </label>
-      <label>
+      <label className={css.formLabel}>
         Number
         <input
+          className={css.formInput}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -25,7 +28,9 @@ const ContactForm = function ({ handleSubmit, handleChange }) {
           onChange={handleChange}
         />
       </label>
-      <button type="submit">Add contact</button>
+      <button className={css.formButton} type="submit">
+        Add contact
+      </button>
     </form>
   );
 };
