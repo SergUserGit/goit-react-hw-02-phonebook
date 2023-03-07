@@ -17,6 +17,8 @@ class App extends Component {
     number: '',
   };
 
+  contactsFilter = [];
+
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -24,6 +26,7 @@ class App extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
+    this.contactsFilter.splice(0, this.contactsFilter.length);
     this.state.contacts.push({
       id: nanoid(),
       name: this.state.name,
@@ -33,6 +36,8 @@ class App extends Component {
   };
 
   handleFilterChange = e => {
+    this.contactsFilter.splice(0, this.contactsFilter.length);
+
     const { name, value } = e.target;
     this.setState({ [name]: value });
 
@@ -40,14 +45,10 @@ class App extends Component {
       contact.name.toUpperCase().includes(value.toUpperCase())
     );
 
-    const filterNotArray = this.state.contacts.filter(contact =>
-      contact.name.toUpperCase().includes(value.toUpperCase())
-    );
-
     if (filterArray.length > 0) {
-      this.setState(prevState => ({ contacts: filterArray }));
-    } else {
-      this.setState({ contacts: [...filterNotArray, ...filterArray] });
+      for (const i of filterArray) {
+        this.contactsFilter.push(i);
+      }
     }
   };
 
@@ -70,7 +71,13 @@ class App extends Component {
         />
         <h2>Contacts</h2>
         <Filter handleFilterChange={this.handleFilterChange} />
-        <ContactList contacts={this.state.contacts} />
+        <ContactList
+          contacts={
+            this.contactsFilter.length > 0
+              ? this.contactsFilter
+              : this.state.contacts
+          }
+        />
       </div>
     );
   }
