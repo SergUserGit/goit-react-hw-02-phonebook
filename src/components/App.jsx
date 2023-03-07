@@ -20,6 +20,8 @@ class App extends Component {
   contactsFilter = [];
 
   handleDeleteContact = el => {
+    this.contactsFilter.splice(0, this.contactsFilter.length);
+
     const findElement = this.state.contacts.find(
       findEl => findEl.id === el.target.dataset.id
     );
