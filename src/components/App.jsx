@@ -19,6 +19,19 @@ class App extends Component {
 
   contactsFilter = [];
 
+  handleDeleteContact = el => {
+    const findElement = this.state.contacts.find(
+      findEl => findEl.id === el.target.dataset.id
+    );
+    if (findElement !== undefined) {
+      const indexElement = this.state.contacts.indexOf(findElement);
+      if (indexElement !== -1) {
+        this.state.contacts.splice(indexElement, 1);
+        this.setState(prevState => ({ contacts: prevState.contacts }));
+      }
+    }
+  };
+
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -82,6 +95,7 @@ class App extends Component {
         <h2>Contacts</h2>
         <Filter handleFilterChange={this.handleFilterChange} />
         <ContactList
+          handleDeleteContact={this.handleDeleteContact}
           contacts={
             this.contactsFilter.length > 0
               ? this.contactsFilter
