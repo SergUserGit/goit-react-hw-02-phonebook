@@ -27,6 +27,16 @@ class App extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     this.contactsFilter.splice(0, this.contactsFilter.length);
+
+    const findElem = this.state.contacts.filter(
+      contact => contact.name.toUpperCase() === this.state.name.toUpperCase()
+    );
+
+    if (findElem.length > 0) {
+      alert(this.state.name + ' is already in contacts.');
+      return;
+    }
+
     this.state.contacts.push({
       id: nanoid(),
       name: this.state.name,
