@@ -13,8 +13,6 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   contactsFilter = [];
@@ -34,32 +32,6 @@ class App extends Component {
     }
   };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = evt => {
-    evt.preventDefault();
-    this.contactsFilter.splice(0, this.contactsFilter.length);
-
-    const findElem = this.state.contacts.filter(
-      contact => contact.name.toUpperCase() === this.state.name.toUpperCase()
-    );
-
-    if (findElem.length > 0) {
-      alert(this.state.name + ' is already in contacts.');
-      return;
-    }
-
-    this.state.contacts.push({
-      id: nanoid(),
-      name: this.state.name,
-      number: this.state.number,
-    });
-    this.setState(prevState => ({ contacts: prevState.contacts }));
-  };
-
   handleFilterChange = e => {
     this.contactsFilter.splice(0, this.contactsFilter.length);
 
@@ -77,6 +49,23 @@ class App extends Component {
     }
   };
 
+  formSubmitHandler = data => {
+    this.contactsFilter.splice(0, this.contactsFilter.length);
+    const findElem = this.state.contacts.filter(
+      contact => contact.name.toUpperCase() === data.name.toUpperCase()
+    );
+    if (findElem.length > 0) {
+      alert(data.name + ' is already in contacts.');
+      return;
+    }
+    this.state.contacts.push({
+      id: nanoid(),
+      name: data.name,
+      number: data.number,
+    });
+    this.setState(prevState => ({ contacts: prevState.contacts }));
+  };
+
   render() {
     return (
       <div
@@ -90,10 +79,7 @@ class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-        />
+        <ContactForm onSubmit={this.formSubmitHandler} />
         <h2>Contacts</h2>
         <Filter handleFilterChange={this.handleFilterChange} />
         <ContactList
